@@ -1,4 +1,4 @@
-class Api::V1::ApplicationControllerController < ApplicationController
+class Api::V1::ApplicationController < ApplicationController
 	def authorize!
 		return if current_user
 		render json: { message: "You do not have right permission to view this resources" }, status: :unauthorized
