@@ -51,4 +51,9 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 			render json: { message: "error" },status: 400
 		end
 	end
+
+	def show
+		Api::V1::UserSerializer.new(@user)
+		render json: serializer.as_json
+	end
 end
