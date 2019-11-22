@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 					post :report
 					post :blocking
 					resources :requests, only: [:create]
-					resource :favorites, only: [:create, :destroy]
+					resource :favorite, only: [:create, :destroy]
 				end
 			end
 			resource :me, only: [:show, :update] do
