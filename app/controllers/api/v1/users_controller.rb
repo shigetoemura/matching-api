@@ -3,7 +3,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	before_action :set_user, except: [:search, :gender]
 
 	def search
-		query = User.all
+		query = User.where.not(id: current_user.id)
 		if params[:query].present?
 			query = query.where("origin like '%" + params[:query] + "%'")
 			.where("job like '%" + params[:query] + "%'")
