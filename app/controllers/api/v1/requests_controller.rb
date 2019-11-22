@@ -25,10 +25,7 @@ class Api::V1::RequestsController < Api::V1::ApplicationController
     end
 
     def accept
-        request = current_user.requests.find_by!(from_user_id: @user.id)
-        request.status = 1
-        request.save!
-        serializer = Api::V1::AcceptSerializer.new()
+        Notification.create!()
     end
 
     def skip
