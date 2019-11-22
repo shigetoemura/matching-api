@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 				collection do
 					put :upload_image
 					resources :favorites, only: [:index]
-					resources :user_requests, only: [:index]
+					resources :requests, only: [:index]
 					resources :notifications, only: [:index]
 					resources :chatrooms, only: [:index, :show] do
 						resources :messages, only: [:create, :index]

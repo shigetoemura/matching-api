@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_041937) do
+ActiveRecord::Schema.define(version: 2019_11_22_073423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 2019_11_22_041937) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.bigint "from_user_id"
+    t.bigint "to_user_id"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["to_user_id"], name: "index_requests_on_to_user_id"
+  end
+
   create_table "user_blocks", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "blocking_user_id"
@@ -71,15 +80,6 @@ ActiveRecord::Schema.define(version: 2019_11_22_041937) do
     t.index ["user_id"], name: "index_user_reports_on_user_id"
   end
 
-  create_table "user_requests", force: :cascade do |t|
-    t.bigint "from_user_id"
-    t.bigint "to_user_id"
-    t.integer "status", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["to_user_id"], name: "index_user_requests_on_to_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "birthday"
@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_041937) do
   add_foreign_key "favorites", "users"
   add_foreign_key "messages", "chat_rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "requests", "users", column: "to_user_id"
   add_foreign_key "user_blocks", "users"
   add_foreign_key "user_images", "users"
   add_foreign_key "user_reports", "users"
-  add_foreign_key "user_requests", "users", column: "to_user_id"
 end
