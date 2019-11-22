@@ -25,7 +25,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def men
-		if current_user = User.find_by(gender: 2)
+		if current_user.id = User.where(gender: 2)
 			query = User.where(gender: 1).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
 	        serializer = ActiveModel::Serializer::CollectionSerializer.new(
 				query,
@@ -39,8 +39,8 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def women
-		if current_user.id = User.find(gender: 1)
-			query = User.where(gender: 1).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
+		if current_user.id = User.where(gender: 1)
+			query = User.where(gender: 2).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
 	        serializer = ActiveModel::Serializer::CollectionSerializer.new(
 				query,
 				serializer: Api::V1::UserSerializer,
