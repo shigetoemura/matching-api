@@ -54,7 +54,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def show
-		Api::V1::UserSerializer.new(@user)
+		serializer = Api::V1::UserSerializer.new(@user)
 		render json: serializer.as_json
 	end
 
