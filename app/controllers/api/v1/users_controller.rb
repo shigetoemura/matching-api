@@ -25,8 +25,16 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def men
-		mens = current_user.mens.where(gender: 2).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
-        users = User.where(id: mens.map(&:user_id))
-        render json: mens, each_serializer: Api::V1::UserSerializer, users: users
+		if current_user = User.find_by(gender: 2)
+			query = User.where(gender: 1).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
+	        serializer = ActiveModel::Serializer::CollectionSerializer.new(
+				query,
+				serializer: Api::V1::UserSerializer,
+				current_user: current_user
+			)
+			render json: serializer.as_json
+		else
+			render json: { message: "error" },status: 400
+		end
 	end
 end
