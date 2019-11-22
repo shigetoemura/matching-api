@@ -5,8 +5,7 @@ Rails.application.routes.draw do
 			resources :users, only: [:show] do
 				collection do
 					get :search
-					get :men
-					get :women
+					get :gender
 					resource :chatrooms, only: [:create]
 				end
 				member do

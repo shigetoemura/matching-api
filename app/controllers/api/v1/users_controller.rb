@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
 	before_action :authorize!
-	before_action :set_user, except: [:search, :men, :women]
+	before_action :set_user, except: [:search, :gender]
 
 	def search
 		query = User.all
@@ -25,28 +25,22 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		render json: serializer.as_json
 	end
 
-	def men
-		if current_user.id = User.where(gender: 2)
-			query = User.where(gender: 1).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
-	        serializer = ActiveModel::Serializer::CollectionSerializer.new(
-				query,
-				serializer: Api::V1::UserSerializer,
-				current_user: current_user
-			)
+	def gender
+		if current_user.gender == 2
+			mens = User.where.not(id: current_user.id, gender: 2).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
+			serializer = ActiveModel::Serializer::CollectionSerializer.new(
+					mens,
+					serializer: Api::V1::UserSerializer,
+					current_user: current_user
+				)
 			render json: serializer.as_json
-		else
-			render json: { message: "error" },status: 400
-		end
-	end
-
-	def women
-		if current_user.id = User.where(gender: 1)
-			query = User.where(gender: 2).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
-	        serializer = ActiveModel::Serializer::CollectionSerializer.new(
-				query,
-				serializer: Api::V1::UserSerializer,
-				current_user: current_user
-			)
+		elsif current_user.gender != 2
+			womens = User.where.not(id: current_user.id, gender: 1).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
+			serializer = ActiveModel::Serializer::CollectionSerializer.new(
+					womens,
+					serializer: Api::V1::UserSerializer,
+					current_user: current_user
+				)
 			render json: serializer.as_json
 		else
 			render json: { message: "error" },status: 400
