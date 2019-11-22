@@ -11,6 +11,7 @@ class Api::V1::SignUpsController < Api::V1::ApplicationController
 	def user_params
 		params.require(:user_params).permit(
 			:name,
-			:gender)
+			:gender,
+			:bio)
 	end
 end
