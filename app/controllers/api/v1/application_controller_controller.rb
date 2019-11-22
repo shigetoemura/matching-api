@@ -6,7 +6,7 @@ class Api::V1::ApplicationControllerController < ApplicationController
 	end
 
 	def current_user
-		User.find_by(token: bearer_token)
+		User.where(token: bearer_token).first
 	end
 
 	private
