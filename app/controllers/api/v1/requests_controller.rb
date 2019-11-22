@@ -24,6 +24,20 @@ class Api::V1::RequestsController < Api::V1::ApplicationController
         render json: user.as_json
     end
 
+    def accept
+        request = current_user.requests.find_by!(from_user_id: @user.id)
+        request.status = 1
+        request.save!
+        serializer = Api::V1::AcceptSerializer.new()
+    end
+
+    def skip
+        request = current_user.requests.find_by!(from_user_id: @user.id)
+        request.status = 2
+        request.save!
+        render json: { message: "request is skiped" }
+    end
+
     private
     def set_user
         @user = User.find_by!(id: params[:id])
