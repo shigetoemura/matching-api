@@ -58,6 +58,11 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		render json: serializer.as_json
 	end
 
+	def report
+		UserReport.create!(user_id: current_user.id, report_user_id: @user.id)
+		render json: { message: "success" }
+	end
+
 	private
 	def set_user
 		@user = User.find_by!(id: params[:id])
