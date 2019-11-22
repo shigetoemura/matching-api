@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 	validates :name, presence: true
 	validates :gender, presence: true
+	validates :bio, presence: true
 
 	has_many :chat_rooms, dependent: :destroy
 	has_many :favorites, dependent: :destroy
