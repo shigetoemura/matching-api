@@ -8,12 +8,12 @@ Rails.application.routes.draw do
 					get :men
 					get :women
 					resource :chatrooms, only: [:create]
-					resource :favorites, only: [:create, :destroy]
 				end
 				member do
 					post :report
 					post :blocking
 					resources :requests, only: [:create]
+					resource :favorites, only: [:create, :destroy]
 				end
 			end
 			resource :me, only: [:show, :update] do
