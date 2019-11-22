@@ -63,6 +63,11 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		render json: { message: "success" }
 	end
 
+	def blocking
+		UserBlock.create!(user_id: current_user.id, blocking_user_id: @user.id)
+		render json: { message: "success" }
+	end
+
 	private
 	def set_user
 		@user = User.find_by!(id: params[:id])
