@@ -14,6 +14,16 @@ class Api::V1::RequestsController < Api::V1::ApplicationController
         render json: requests, each_serializer: Api::V1::RequestSerializer, from_users: from_users
     end
 
+    def show
+        request = current_user.requests.find_by(from_user_id: @user.id)
+        if request == nil
+            return render json: { message: "request is skiped" }
+        end
+
+        user = User.find_by(id:@user.id)
+        render json: user.as_json
+    end
+
     private
     def set_user
         @user = User.find_by!(id: params[:id])
