@@ -57,4 +57,9 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		Api::V1::UserSerializer.new(@user)
 		render json: serializer.as_json
 	end
+
+	private
+	def set_user
+		@user = User.find_by!(id: params[:id])
+	end
 end
