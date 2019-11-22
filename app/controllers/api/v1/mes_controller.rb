@@ -36,6 +36,17 @@ class Api::V1::MesController < Api::V1::ApplicationController
 
   	end
 
+  	def upload_image
+  		@user = current_user
+  		@user.image = params[:image]
+  		if @user.save
+  			serializer = Api::V1::MeSerializer.new(@user)
+      		render json: serializer.as_json
+		else
+			raise ActiveRecord::RecordNotSaved
+  		end
+  	end
+
   	private
 
   	def user_params
