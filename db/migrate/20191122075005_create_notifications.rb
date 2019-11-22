@@ -1,8 +1,8 @@
 class CreateNotifications < ActiveRecord::Migration[5.2]
   def change
     create_table :notifications do |t|
-      t.bigint "from_user_id"
-      t.references "to_user", foreign_key: { to_table: :users }
+      t.bigint :from_user_id
+      t.references :to_user, foreign_key: { to_table: :users }
       t.references :notificable, polymorphic: true
 
       t.timestamps
