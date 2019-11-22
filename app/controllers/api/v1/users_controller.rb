@@ -1,5 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
 	before_action :authorize!
+	before_action :set_user, except: [:search, :men, :women]
 
 	def search
 		query = User.all
