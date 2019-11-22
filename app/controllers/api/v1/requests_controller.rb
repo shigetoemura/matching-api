@@ -3,7 +3,7 @@ class Api::V1::RequestsController < Api::V1::ApplicationController
 	before_action :set_user, only: [:create, :skip, :show]
 
 	def create
-        UserRequest.create!(from_user_id: @user.id, to_user_id: current_user.id)
+        Request.create!(from_user_id: @user.id, to_user_id: current_user.id)
 
         render json: { message: "success" }
     end
