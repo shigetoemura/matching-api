@@ -9,6 +9,7 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   			:income,
   			:height,
   			:bio,
+  			:is_favorite,
   			:created_at,
   			:updated_at
 
@@ -19,4 +20,12 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   	def updated_at
   		object.updated_at.to_i
   	end
+
+  	def is_favorite
+      if instance_options[:current_user].present?
+        instance_options[:current_user].favorites.where(to_user_id: object).present?
+      else
+        false
+      end
+    end
 end
