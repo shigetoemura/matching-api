@@ -8,8 +8,6 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 			query = query.where("origin like '%" + params[:query] + "%'")
 			.where("job like '%" + params[:query] + "%'")
 			.where("income like '%" + params[:query] + "%'")
-			.where("height like '%" + params[:query] + "%'")
-			.where("birthday like '%" + params[:query] + "%'")
 			.uniq
 			.page(params[:page])
 			.per(params[:limit])
