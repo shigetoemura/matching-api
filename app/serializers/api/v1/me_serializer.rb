@@ -14,8 +14,6 @@ class Api::V1::MeSerializer < ActiveModel::Serializer
             :updated_at
 
     def image_url
-      # image_url = UserImage.where(user_id: current_user.id)
-      # serializer = Api::V1::UserImageSerializer.new(image_url)
     end
 
     def created_at

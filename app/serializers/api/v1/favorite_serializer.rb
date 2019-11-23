@@ -17,12 +17,6 @@ class Api::V1::FavoriteSerializer < ActiveModel::Serializer
   def to_user
     to_user = @to_users.find { |t| t[:id] == object.to_user_id }
     Api::V1::UserSerializer.new(to_user)
-    # to_user = User.where(id: object.to_user_id).first
-    # if instance_options[:current_user].present?
-    #   Api::V1::UserSerializer.new(to_user, current_user:instance_options[:current_user] )
-    # else
-    #   Api::V1::UserSerializer.new(to_user)
-    # end
   end
 
   def created_at
