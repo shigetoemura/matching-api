@@ -7,13 +7,13 @@ Rails.application.routes.draw do
 					get :search
 					get :men
 					get :women
-					resource :chatrooms, only: [:create]
 				end
 				member do
 					post :report
 					post :blocking
 					resources :requests, only: [:create]
 					resource :favorite, only: [:create, :destroy]
+					resource :chat_rooms, only: [:create]
 				end
 			end
 			resource :me, only: [:show, :update] do
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 					resources :favorites, only: [:index]
 					resources :requests, only: [:index]
 					resources :notifications, only: [:index]
-					resources :chatrooms, only: [:index, :show] do
+					resources :chat_rooms, only: [:index, :show] do
 						resources :messages, only: [:create, :index]
 					end
 				end
