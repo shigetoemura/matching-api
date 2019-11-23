@@ -25,19 +25,25 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		render json: serializer.as_json
 	end
 
-	def gender
+	def men
 		if current_user.gender == 2
-			mens = User.where.not(id: current_user.id, gender: 2).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
+		mens = User.where.not(id: current_user.id, gender: 2).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
 			serializer = ActiveModel::Serializer::CollectionSerializer.new(
 					mens,
 					serializer: Api::V1::UserSerializer,
 					current_user: current_user
 				)
 			render json: serializer.as_json
-		elsif current_user.gender != 2
-			womens = User.where.not(id: current_user.id, gender: 1).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
+		else
+			render json: { message: "error" },status: 400
+		end
+	end
+
+	def women
+		if current_user.gender == 1
+		mens = User.where.not(id: current_user.id, gender: 1).page(params[:page]).per(params[:limit]).order(updated_at: :desc)
 			serializer = ActiveModel::Serializer::CollectionSerializer.new(
-					womens,
+					mens,
 					serializer: Api::V1::UserSerializer,
 					current_user: current_user
 				)
