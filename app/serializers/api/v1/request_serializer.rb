@@ -19,4 +19,12 @@ class Api::V1::RequestSerializer < ActiveModel::Serializer
     Api::V1::UserSerializer.new(from_user)
   end
 
+  def created_at
+    object.created_at.to_i
+  end
+
+  def updated_at
+    object.updated_at.to_i
+  end
+
 end
