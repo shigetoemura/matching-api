@@ -1,7 +1,7 @@
 class Api::V1::ChatRoomSerializer < ActiveModel::Serializer
   attributes :id,
-            :user_id,
-            :opponent_user,
+  			:user_id,
+  			:opponent_user,
             :created_at,
             :updated_at
 
@@ -16,7 +16,7 @@ class Api::V1::ChatRoomSerializer < ActiveModel::Serializer
 
     def opponent_user
 	    opponent_user = @opponent_users.find { |t| t[:id] == object.opponent_user_id }
-	    Api::V1::UserSerializer.new(opponent_user)
+      	Api::V1::UserSerializer.new(opponent_user)
   	end
 
     def created_at

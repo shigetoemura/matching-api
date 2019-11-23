@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 					post :blocking
 					resources :requests, only: [:create]
 					resource :favorite, only: [:create, :destroy]
-					resource :chat_rooms, only: [:create]
+					resource :chat_rooms, only: [:create, :destroy]
 				end
 			end
 			resource :me, only: [:show, :update] do
