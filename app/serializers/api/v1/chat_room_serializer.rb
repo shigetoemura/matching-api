@@ -6,18 +6,18 @@ class Api::V1::ChatRoomSerializer < ActiveModel::Serializer
             :updated_at
 
     def initialize(object, options = {})
-	    @opponent_users = options[:opponent_users]
-	    super
-  	end
+      @opponent_users = options[:opponent_users]
+      super
+    end
 
     def id
       object.id
     end
 
     def opponent_user
-	    opponent_user = @opponent_users.find { |t| t[:id] == object.opponent_user_id }
-      	Api::V1::UserSerializer.new(opponent_user)
-  	end
+      opponent_user = @opponent_users.find { |t| t[:id] == object.opponent_user_id }
+      Api::V1::UserSerializer.new(opponent_user)
+    end
 
     def created_at
       object.created_at.to_i

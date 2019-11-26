@@ -1,0 +1,12 @@
+class CreateChatRooms < ActiveRecord::Migration[5.2]
+  def change
+    create_table :chat_rooms do |t|
+      t.references :user, foreign_key: true
+      t.integer :opponent_user_id
+
+      t.timestamps
+    end
+
+    add_index :chat_rooms, [:user_id, :opponent_user_id], unique: true
+  end
+end
