@@ -1,7 +1,7 @@
 class Api::V1::ChatRoomSerializer < ActiveModel::Serializer
   attributes :id,
-  			:user_id,
-  			:opponent_user,
+  			    :user_id,
+  			    :opponent_user,
             :created_at,
             :updated_at
 
