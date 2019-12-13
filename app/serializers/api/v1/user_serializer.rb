@@ -10,7 +10,6 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   			:height,
   			:bio,
   			:is_favorite,
-        :is_chatroom,
   			:created_at,
   			:updated_at
 
@@ -25,14 +24,6 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   	def is_favorite
       if instance_options[:current_user].present?
         instance_options[:current_user].favorites.where(to_user_id: object).present?
-      else
-        false
-      end
-    end
-
-    def is_chatroom
-      if instance_options[:current_user].present?
-        instance_options[:current_user].chat_rooms.where(opponent_user_id: object).present?
       else
         false
       end

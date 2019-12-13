@@ -11,9 +11,9 @@ Rails.application.routes.draw do
 				member do
 					post :report
 					post :blocking
-					resources :requests, only: [:create]
+					resources :match_requests, only: [:create]
 					resource :favorite, only: [:create, :destroy]
-					resource :chat_rooms, only: [:create, :destroy]
+					resource :matches, only: [:create, :destroy]
 				end
 			end
 			resource :me, only: [:show, :update] do
@@ -22,22 +22,22 @@ Rails.application.routes.draw do
 					resources :favorites, only: [:index]
 					resources :requests, only: [:index]
 					resources :notifications, only: [:index]
-					resources :chat_rooms, only: [:index, :show] do
-						resources :messages, only: [:create, :index]
+					resources :matchs, only: [:index, :show] do
+						resources :chats, only: [:create, :index]
 					end
 				end
 			end
-			resources :requests, only: [:show] do
+			resources :match_requests, only: [:show, :index] do
 				member do
 					post :accept
 					post :skip
 				end
 			end
-			resources :messages, only: [:show] do
-				member do
-					resource :favorite, only: [:create, :destroy]
-				end
-			end
+			resources :matches, only: [:index] do
+	        	member do
+	          		resources :chats, only: [:create, :index]
+	        	end
+	        end
 		end
 	end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
