@@ -1,7 +1,6 @@
 class Api::V1::MatchSerializer < ActiveModel::Serializer
   attributes :id,
              :from_user,
-             :to_user,
              :created_at,
              :updated_at
 
@@ -9,9 +8,6 @@ class Api::V1::MatchSerializer < ActiveModel::Serializer
       Api::V1::UserSerializer.new(object.user)
   end
 
-  def to_user
-      Api::V1::UserSerializer.new(object.user)
-  end
 
   def created_at
     object.created_at.to_i

@@ -10,6 +10,7 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   			:height,
   			:bio,
   			:is_favorite,
+        :token,
   			:created_at,
   			:updated_at
 
