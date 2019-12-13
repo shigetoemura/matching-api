@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_095434) do
+ActiveRecord::Schema.define(version: 2019_12_13_094106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "chat_rooms", force: :cascade do |t|
-    t.bigint "user_id"
-    t.integer "opponent_user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "opponent_user_id"], name: "index_chat_rooms_on_user_id_and_opponent_user_id", unique: true
-    t.index ["user_id"], name: "index_chat_rooms_on_user_id"
-  end
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id"
@@ -36,15 +27,14 @@ ActiveRecord::Schema.define(version: 2019_11_26_095434) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.bigint "chat_room_id"
-    t.bigint "user_id"
-    t.string "text"
-    t.string "icon"
+  create_table "match_requests", force: :cascade do |t|
+    t.bigint "from_user_id", null: false
+    t.bigint "to_user_id", null: false
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["from_user_id"], name: "index_match_requests_on_from_user_id"
+    t.index ["to_user_id"], name: "index_match_requests_on_to_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -108,10 +98,9 @@ ActiveRecord::Schema.define(version: 2019_11_26_095434) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "chat_rooms", "users"
   add_foreign_key "favorites", "users"
-  add_foreign_key "messages", "chat_rooms"
-  add_foreign_key "messages", "users"
+  add_foreign_key "match_requests", "users", column: "from_user_id"
+  add_foreign_key "match_requests", "users", column: "to_user_id"
   add_foreign_key "notifications", "users", column: "to_user_id"
   add_foreign_key "requests", "users", column: "to_user_id_id"
   add_foreign_key "user_blocks", "users"
